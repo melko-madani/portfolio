@@ -10,7 +10,7 @@ Editorial, content-first site: a home page with selected work, about, capabiliti
 - Tailwind CSS 4 (design tokens live in `src/index.css`)
 - React Router 7 with static prerendering (`scripts/prerender.mjs`) — every route is a real HTML file
 - Self-hosted fonts: Instrument Serif, Inter Variable, JetBrains Mono Variable (`@fontsource`)
-- Art direction layer: animated SVG hero artwork (`HeroArtwork.tsx`), paper grain, masked headline reveals, editorial numerals, duotone portrait — all disabled under reduced motion where relevant
+- Art direction layer: a fan of five patterned story cards in the hero that open a card deck dialog (`src/components/stories/`), paper grain, masked headline reveals, editorial numerals, duotone portrait — all disabled under reduced motion where relevant
 - Vitest for content validation tests, oxlint for linting
 - No backend, no analytics, no secrets
 
@@ -53,6 +53,7 @@ All copy and facts live in `src/content/en/` and `src/content/fr/` — the compo
 |---|---|
 | `../site.ts` | Email, LinkedIn, GitHub, CV path, availability toggle, employer-name toggle, site URL (shared by all languages) |
 | `profile.ts` | Name, titles, headline lines, intro |
+| `stories.ts` | The five hero cards (label, title, paragraphs, pattern) |
 | `projects.ts` | The projects and their case-study sections (`slug`, `status`, `role`, `stack`, `visual`, `layout`, `caseStudySections`, …) |
 | `experience.ts` | Experience entries, education, capabilities |
 | `ui.ts` | Navigation labels, section headings, about text, microcopy |
@@ -78,6 +79,7 @@ src/
   components/
     layout/          Header (desktop nav + accessible mobile menu), Footer, Layout
     sections/        Hero, Work, About, Capabilities, Experience (+ Education), Contact
+    stories/         StoryFan (hero cards), StoryDialog (native <dialog> deck), StoryPattern (SVG faces)
     visuals/         one component per project visual
     Reveal.tsx       scroll-triggered reveal (IntersectionObserver, reduced-motion aware)
     ui.tsx           SectionHeading, Cta, Tag, MetaRow, icons

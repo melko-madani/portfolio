@@ -18,6 +18,15 @@ export const ui: UiStrings = {
     primaryCta: 'Découvrir les projets',
     secondaryCta: 'Me contacter',
   },
+  stories: {
+    view: 'Voir',
+    open: 'Qui je suis',
+    close: 'Fermer',
+    previous: 'Carte précédente',
+    next: 'Carte suivante',
+    dialogLabel: 'Cinq cartes sur moi',
+    hint: 'Cinq cartes sur moi — choisissez-en une.',
+  },
   work: {
     eyebrow: 'Projets sélectionnés',
     heading: 'Des systèmes construits autour de vrais problèmes opérationnels.',
@@ -71,12 +80,6 @@ export const ui: UiStrings = {
     cta: 'Retour à l’accueil',
   },
   visuals: {
-    hero: {
-      fields: '9 CHAMPS · VALIDÉS',
-      local: 'LOCAL · SANS CLOUD',
-      tags: ['montant_ttc · 3 432,00', 'date limite · J-6', 'TTC = HT × 1,20 ✓'],
-      baseline: 'DOCUMENTS → STRUCTURE → DÉCISIONS',
-    },
     btp: {
       output: 'Sortie structurée',
       supplier: 'Fournisseur',

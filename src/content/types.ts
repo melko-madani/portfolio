@@ -118,8 +118,23 @@ export interface AboutContent {
   approach: { step: string; title: string; text: string }[]
 }
 
+/**
+ * The hero's fanned cards: short personal stories, each with a graphic
+ * pattern drawn in the site's palette. Clicking a card opens the story deck.
+ */
+export type StoryPattern = 'portrait' | 'road' | 'grid' | 'documents' | 'waves'
+
+export interface Story {
+  id: string
+  /** Two-line label: a bold first line and a serif second line (e.g. "Who" / "I am"). */
+  label: [string, string]
+  /** Accessible name of the card button and heading of the story. */
+  title: string
+  paragraphs: string[]
+  pattern: StoryPattern
+}
+
 export interface VisualLabels {
-  hero: { fields: string; local: string; tags: [string, string, string]; baseline: string }
   btp: {
     output: string
     supplier: string
@@ -177,6 +192,19 @@ export interface UiStrings {
   homeAria: string
   nav: { label: string; hash: string }[]
   hero: { primaryCta: string; secondaryCta: string }
+  stories: {
+    /** Prefix of each card's accessible name, e.g. "View" → "View Who I am". */
+    view: string
+    /** Label of the header button that opens the deck on the first story. */
+    open: string
+    close: string
+    previous: string
+    next: string
+    /** Accessible label of the deck dialog. */
+    dialogLabel: string
+    /** Small caption under the fan, e.g. "Five cards about me — tap one". */
+    hint: string
+  }
   work: { eyebrow: string; heading: string; intro: string; readCaseStudy: string; role: string; status: string; stack: string; projectPrefix: string }
   about: { eyebrow: string }
   capabilities: { eyebrow: string; heading: string }
@@ -195,6 +223,7 @@ export interface Content {
   profile: Profile
   ui: UiStrings
   about: AboutContent
+  stories: Story[]
   projects: Project[]
   experience: ExperienceEntry[]
   education: EducationEntry[]

@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react'
 import { useContent, useHref } from '../../lib/locale'
+import { StoryFan } from '../stories/StoryFan'
 import { Cta, Tag } from '../ui'
-import { HeroArtwork } from './HeroArtwork'
 
 const rise = (ms: number) => ({ '--rise-delay': `${ms}ms` }) as CSSProperties
 
@@ -20,10 +20,10 @@ export function Hero() {
   const href = useHref()
   const [line1, line2, line3] = profile.headline
   return (
-    <section className="relative overflow-x-clip pt-28 pb-16 sm:pt-36 md:pb-24 lg:pt-40" aria-labelledby="hero-heading">
+    <section className="relative overflow-x-clip pt-28 sm:pt-32 lg:pt-32" aria-labelledby="hero-heading">
       <div className="container-grid">
-        <div className="grid-12 items-end gap-y-12">
-          <div className="col-span-12 lg:col-span-7">
+        <div className="grid-12 items-end gap-y-10">
+          <div className="col-span-12 lg:col-span-8">
             <p className="eyebrow rise flex flex-wrap items-center gap-x-3 gap-y-2" style={rise(0)}>
               <span>{profile.title}</span>
               {site.availability.enabled && <Tag tone="accent">{profile.availabilityLabel}</Tag>}
@@ -35,25 +35,12 @@ export function Hero() {
                 {line3}
               </Line>
             </h1>
-            <ul className="rise meta mt-8 flex flex-wrap gap-x-4 gap-y-1.5" style={rise(520)}>
-              {profile.contextLine.map((item, i) => (
-                <li key={item} className="flex items-center gap-4">
-                  {i > 0 && <span aria-hidden="true" className="size-1 rounded-full bg-sage" />}
-                  {item}
-                </li>
-              ))}
-            </ul>
           </div>
-
-          <div className="col-span-12 lg:col-span-5 lg:pl-6">
-            <HeroArtwork />
-          </div>
-
-          <div className="col-span-12 grid-12 gap-y-8 lg:mt-4">
-            <p className="lede rise col-span-12 md:col-span-7 lg:col-span-6" style={rise(420)}>
+          <div className="col-span-12 flex flex-col gap-6 lg:col-span-4 lg:items-end lg:pb-3 lg:text-right">
+            <p className="lede rise !text-[1.0625rem]" style={rise(420)}>
               {profile.intro}
             </p>
-            <div className="rise col-span-12 flex flex-wrap gap-3 md:col-span-5 md:justify-end lg:col-span-6" style={rise(500)}>
+            <div className="rise flex flex-wrap gap-3 lg:justify-end" style={rise(500)}>
               <Cta to={href('/#work')}>{ui.hero.primaryCta}</Cta>
               <Cta to={href('/#contact')} variant="ghost">
                 {ui.hero.secondaryCta}
@@ -62,7 +49,7 @@ export function Hero() {
           </div>
         </div>
 
-        <hr className="rule rise mt-16 md:mt-24" style={rise(620)} />
+        <StoryFan />
       </div>
     </section>
   )

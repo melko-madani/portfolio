@@ -18,6 +18,15 @@ export const ui: UiStrings = {
     primaryCta: 'Explore selected work',
     secondaryCta: 'Get in touch',
   },
+  stories: {
+    view: 'View',
+    open: 'Who I am',
+    close: 'Close',
+    previous: 'Previous card',
+    next: 'Next card',
+    dialogLabel: 'Five cards about me',
+    hint: 'Five cards about me — pick one.',
+  },
   work: {
     eyebrow: 'Selected work',
     heading: 'Systems built around real operational problems.',
@@ -71,12 +80,6 @@ export const ui: UiStrings = {
     cta: 'Back to the homepage',
   },
   visuals: {
-    hero: {
-      fields: '9 FIELDS · VALIDATED',
-      local: 'LOCAL · NO CLOUD',
-      tags: ['montant_ttc · 3 432,00', 'date limite · J-6', 'TTC = HT × 1.20 ✓'],
-      baseline: 'DOCUMENTS → STRUCTURE → DECISIONS',
-    },
     btp: {
       output: 'Structured output',
       supplier: 'Supplier',

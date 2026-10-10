@@ -45,6 +45,16 @@ describe.each(locales)('%s content', (locale) => {
     expect(education.map((e) => e.id)).toEqual(['master', 'licence', 'dut'])
   })
 
+  it('has five story cards with two-line labels and at least one paragraph', () => {
+    const { stories } = getContent(locale)
+    expect(stories.length).toBe(5)
+    for (const s of stories) {
+      expect(s.label.length).toBe(2)
+      expect(s.paragraphs.length).toBeGreaterThan(0)
+      expect(s.title.length).toBeGreaterThan(3)
+    }
+  })
+
   it('points navigation at sections that exist on the home page', () => {
     for (const item of ui.nav) expect(['work', 'about', 'experience', 'contact']).toContain(item.hash)
   })
@@ -67,6 +77,8 @@ describe('locale parity', () => {
         expect(q.caseStudySections[j].paragraphs?.length).toBe(s.paragraphs?.length)
       }
     }
+    expect(fr.stories.map((s) => s.id)).toEqual(en.stories.map((s) => s.id))
+    expect(fr.stories.map((s) => s.pattern)).toEqual(en.stories.map((s) => s.pattern))
     expect(fr.experience.map((e) => e.id)).toEqual(en.experience.map((e) => e.id))
     expect(fr.capabilities.map((c) => c.id)).toEqual(en.capabilities.map((c) => c.id))
   })

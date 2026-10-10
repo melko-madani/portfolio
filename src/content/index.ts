@@ -1,10 +1,12 @@
 import type { Content, Locale } from './types'
 import { site } from './site'
 import { profile as profileEn } from './en/profile'
+import { stories as storiesEn } from './en/stories'
 import { about as aboutEn, ui as uiEn } from './en/ui'
 import { projects as projectsEn } from './en/projects'
 import { capabilities as capabilitiesEn, education as educationEn, experience as experienceEn } from './en/experience'
 import { profile as profileFr } from './fr/profile'
+import { stories as storiesFr } from './fr/stories'
 import { about as aboutFr, ui as uiFr } from './fr/ui'
 import { projects as projectsFr } from './fr/projects'
 import { capabilities as capabilitiesFr, education as educationFr, experience as experienceFr } from './fr/experience'
@@ -15,6 +17,7 @@ const en: Content = {
   profile: profileEn,
   ui: uiEn,
   about: aboutEn,
+  stories: storiesEn,
   projects: projectsEn,
   experience: experienceEn,
   education: educationEn,
@@ -27,6 +30,7 @@ const fr: Content = {
   profile: profileFr,
   ui: uiFr,
   about: aboutFr,
+  stories: storiesFr,
   projects: projectsFr,
   experience: experienceFr,
   education: educationFr,

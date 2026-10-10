@@ -50,7 +50,11 @@ Everything on the site is backed by a source (internship report, MP Maroc code, 
 **Visuals**
 - All four project visuals are hand-built recreations with fictitious data. To replace one with a real screenshot, add the image to `public/images/projects/` and swap the branch in `src/components/visuals/ProjectVisual.tsx` for an `<img>` with alt text. Anonymise any real supplier, client or financial data first.
 
-## 5. Language
+## 5. Story cards — `src/content/en/stories.ts`, `src/content/fr/stories.ts`
+
+The five cards in the hero ("Who I am", "Safi to Casablanca", "The analyst detour", "Local first", "Measure, then ship") only restate facts already on the site, in a more personal voice. Please proofread the tone and tell me if you want different themes — the brief's leadership initiatives (SCILAB) could become a sixth card once documented.
+
+## 6. Language
 
 Both English (`/`) and French (`/fr`) versions are live and prerendered, with a working language switch. The French copy is a faithful translation of the English content with the same facts and caveats; please proofread it once (`src/content/fr/`), in particular the job titles (`Solutions IA & digitales`, `Ingénieur IA`) and the degree names, which follow the brief's wording.
 

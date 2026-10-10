@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { localizePath, parsePath } from '../../content'
 import { useActiveSection } from '../../hooks/useActiveSection'
 import { useContent, useHref, useLocale } from '../../lib/locale'
+import { useStories } from '../../lib/stories'
 import { Arrow } from '../ui'
 
 const SECTION_IDS = ['work', 'about', 'experience', 'contact']
@@ -32,6 +33,7 @@ export function Header() {
   const toggleRef = useRef<HTMLButtonElement | null>(null)
   const isHome = parsePath(pathname).path === '/'
   const active = useActiveSection(SECTION_IDS)
+  const { open: openStories } = useStories()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -71,10 +73,16 @@ export function Header() {
         style={{ boxShadow: scrolled && !open ? 'inset 0 -1px 0 var(--line)' : 'none' }}
       >
         <div className="container-grid flex h-16 items-center justify-between gap-6 md:h-[4.5rem]">
-          <Link to={href('/')} className="group flex items-baseline gap-3 no-underline" aria-label={ui.homeAria}>
-            <span className="font-display text-[1.375rem] leading-none tracking-tight text-ink">{profile.name}</span>
-            <span className="meta hidden sm:inline">{profile.shortTitle}</span>
-          </Link>
+          <div className="flex items-center gap-3 sm:gap-4">
+            <button type="button" className="who-button" onClick={() => openStories(0)} aria-label={ui.stories.open}>
+              <img src={profile.portrait.src} alt="" width="40" height="40" className="size-10 rounded-full object-cover" />
+              <span className="who-button-label">{ui.stories.open}</span>
+            </button>
+            <Link to={href('/')} className="group flex items-baseline gap-3 no-underline" aria-label={ui.homeAria}>
+              <span className="font-display text-[1.375rem] leading-none tracking-tight text-ink">{profile.name}</span>
+              <span className="meta hidden lg:inline">{profile.shortTitle}</span>
+            </Link>
+          </div>
 
           <nav aria-label={ui.mainNav} className="hidden items-center gap-7 md:flex">
             {ui.nav.map((item) => (
