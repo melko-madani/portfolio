@@ -1,9 +1,9 @@
-import { content } from '../../content'
+import { useContent } from '../../lib/locale'
 import { Reveal } from '../Reveal'
 import { SectionHeading } from '../ui'
 
 export function Capabilities() {
-  const { capabilities, ui } = content
+  const { capabilities, ui } = useContent()
   return (
     <section id="capabilities" className="scroll-mt-24 py-20 md:py-28" aria-labelledby="capabilities-label">
       <div className="container-grid">

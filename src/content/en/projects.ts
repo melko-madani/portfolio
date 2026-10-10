@@ -17,6 +17,7 @@ export const projects: Project[] = [
     summary:
       'A fully local pipeline that turns heterogeneous supplier invoices — native or scanned PDFs — into nine validated accounting fields, maintainable by non-developers through editable supplier rules and a built-in evaluation bench.',
     role: 'Sole developer, from needs analysis and architecture to implementation and evaluation, within a small consultancy and under academic supervision.',
+    roleShort: 'Sole developer',
     year: '2026',
     stack: ['Python', 'FastAPI', 'DocTR', 'PyMuPDF', 'Ollama · Gemma 2 9B', 'YAML configuration', 'Jinja2', 'Tailwind CSS', 'Vanilla JS', 'openpyxl'],
     visual: 'btpextract',
@@ -141,6 +142,7 @@ export const projects: Project[] = [
     summary:
       'A platform that collects public tenders from the official Moroccan portal, normalises them into a searchable catalogue with filters and deadlines, and lets users save searches, follow tenders and receive alerts.',
     role: 'Product design and full-stack development: scraper and API, data model, front-end and member features.',
+    roleShort: 'Product design and full-stack development',
     year: '2026',
     stack: ['Python', 'FastAPI', 'SQLite', 'httpx · BeautifulSoup', 'React', 'TypeScript', 'Vite', 'Tailwind CSS'],
     visual: 'mp-maroc',
@@ -220,6 +222,7 @@ export const projects: Project[] = [
     summary:
       'A distributed architecture that ingests streaming events with Kafka, processes them with Spark Streaming, stores them in a Cassandra cluster and exposes health and metrics through Prometheus and Grafana.',
     role: 'Design and implementation of the pipeline in an academic setting, as part of my Master’s in intelligent systems.',
+    roleShort: 'Design and implementation',
     stack: ['Apache Kafka', 'Spark Streaming', 'Apache Cassandra', 'Prometheus', 'Grafana'],
     visual: 'streaming-pipeline',
     featured: true,
@@ -269,6 +272,7 @@ export const projects: Project[] = [
     summary:
       'A concept for an AI assistant that reads workload, task complexity and contribution signals to prepare — never decide — reviews, training plans and mobility discussions.',
     role: 'Project lead and owner: problem framing, concept and system design, technical and business direction. Teammates covered HR expertise and development.',
+    roleShort: 'Project lead and owner',
     stack: [],
     visual: 'talent-orchestrator',
     featured: true,

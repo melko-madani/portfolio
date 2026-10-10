@@ -1,19 +1,36 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { content } from '../../content'
+import { localizePath, parsePath } from '../../content'
 import { useActiveSection } from '../../hooks/useActiveSection'
+import { useContent, useHref, useLocale } from '../../lib/locale'
 import { Arrow } from '../ui'
 
 const SECTION_IDS = ['work', 'about', 'experience', 'contact']
 
+/** Link to the same page in the other language. */
+export function LanguageSwitch({ className = '' }: { className?: string }) {
+  const locale = useLocale()
+  const { ui } = useContent()
+  const { pathname, hash } = useLocation()
+  const other = locale === 'en' ? 'fr' : 'en'
+  const { path } = parsePath(pathname)
+  const target = localizePath(other, path) + hash
+  return (
+    <Link to={target} hrefLang={other} lang={other} aria-label={ui.switchLanguage.ariaLabel} className={`nav-link font-mono text-xs uppercase tracking-[0.12em] ${className}`}>
+      {ui.switchLanguage.label}
+    </Link>
+  )
+}
+
 export function Header() {
-  const { profile, ui } = content
+  const { profile, ui } = useContent()
+  const href = useHref()
   const { pathname } = useLocation()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const firstLinkRef = useRef<HTMLAnchorElement | null>(null)
   const toggleRef = useRef<HTMLButtonElement | null>(null)
-  const isHome = pathname === '/'
+  const isHome = parsePath(pathname).path === '/'
   const active = useActiveSection(SECTION_IDS)
 
   useEffect(() => {
@@ -45,57 +62,49 @@ export function Header() {
     }
   }, [open])
 
-  const isActive = (href: string) => {
-    const id = href.split('#')[1]
-    return isHome && active === id
-  }
-
   return (
     <>
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-300 ${
-        open ? 'bg-paper' : scrolled ? 'bg-paper/90 backdrop-blur-md' : 'bg-transparent'
-      }`}
-      style={{ boxShadow: scrolled && !open ? 'inset 0 -1px 0 var(--line)' : 'none' }}
-    >
-      <div className="container-grid flex h-16 items-center justify-between gap-6 md:h-[4.5rem]">
-        <Link to="/" className="group flex items-baseline gap-3 no-underline" aria-label={`${profile.name} — home`}>
-          <span className="font-display text-[1.375rem] leading-none tracking-tight text-ink">{profile.name}</span>
-          <span className="meta hidden sm:inline">AI Engineer</span>
-        </Link>
-
-        <nav aria-label={ui.mainNav} className="hidden items-center gap-7 md:flex">
-          {ui.nav.map((item) => (
-            <Link key={item.href} to={item.href} className="nav-link" data-active={isActive(item.href)}>
-              {item.label}
-            </Link>
-          ))}
-          <Link to="/#contact" className="btn btn-primary !h-10 !px-4 !text-sm">
-            {ui.hero.secondaryCta}
-            <Arrow />
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-300 ${
+          open ? 'bg-paper' : scrolled ? 'bg-paper/90 backdrop-blur-md' : 'bg-transparent'
+        }`}
+        style={{ boxShadow: scrolled && !open ? 'inset 0 -1px 0 var(--line)' : 'none' }}
+      >
+        <div className="container-grid flex h-16 items-center justify-between gap-6 md:h-[4.5rem]">
+          <Link to={href('/')} className="group flex items-baseline gap-3 no-underline" aria-label={ui.homeAria}>
+            <span className="font-display text-[1.375rem] leading-none tracking-tight text-ink">{profile.name}</span>
+            <span className="meta hidden sm:inline">{profile.shortTitle}</span>
           </Link>
-        </nav>
 
-        <button
-          ref={toggleRef}
-          type="button"
-          className="relative -mr-2 flex size-11 items-center justify-center rounded-full md:hidden"
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          aria-label={open ? ui.closeMenu : ui.openMenu}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className="relative block h-3 w-5" aria-hidden="true">
-            <span
-              className={`absolute left-0 top-0 h-px w-full bg-ink transition-transform duration-300 ${open ? 'translate-y-[5.5px] rotate-45' : ''}`}
-            />
-            <span
-              className={`absolute left-0 bottom-0 h-px w-full bg-ink transition-transform duration-300 ${open ? '-translate-y-[5.5px] -rotate-45' : ''}`}
-            />
-          </span>
-        </button>
-      </div>
-    </header>
+          <nav aria-label={ui.mainNav} className="hidden items-center gap-7 md:flex">
+            {ui.nav.map((item) => (
+              <Link key={item.hash} to={href(`/#${item.hash}`)} className="nav-link" data-active={isHome && active === item.hash}>
+                {item.label}
+              </Link>
+            ))}
+            <LanguageSwitch />
+            <Link to={href('/#contact')} className="btn btn-primary !h-10 !px-4 !text-sm">
+              {ui.hero.secondaryCta}
+              <Arrow />
+            </Link>
+          </nav>
+
+          <button
+            ref={toggleRef}
+            type="button"
+            className="relative -mr-2 flex size-11 items-center justify-center rounded-full md:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? ui.closeMenu : ui.openMenu}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="relative block h-3 w-5" aria-hidden="true">
+              <span className={`absolute left-0 top-0 h-px w-full bg-ink transition-transform duration-300 ${open ? 'translate-y-[5.5px] rotate-45' : ''}`} />
+              <span className={`absolute left-0 bottom-0 h-px w-full bg-ink transition-transform duration-300 ${open ? '-translate-y-[5.5px] -rotate-45' : ''}`} />
+            </span>
+          </button>
+        </div>
+      </header>
 
       {/* Mobile menu — a sibling of the header so its fixed positioning is relative to the viewport. */}
       <div
@@ -109,10 +118,10 @@ export function Header() {
         <nav className="container-grid flex h-full flex-col justify-between py-10" aria-label={ui.mainNav}>
           <ul className="flex flex-col">
             {ui.nav.map((item, i) => (
-              <li key={item.href} className="border-t" style={{ borderColor: 'var(--line)' }}>
+              <li key={item.hash} className="border-t" style={{ borderColor: 'var(--line)' }}>
                 <Link
                   ref={i === 0 ? firstLinkRef : undefined}
-                  to={item.href}
+                  to={href(`/#${item.hash}`)}
                   className="flex items-baseline justify-between py-5 no-underline"
                   onClick={() => setOpen(false)}
                 >
@@ -121,6 +130,9 @@ export function Header() {
                 </Link>
               </li>
             ))}
+            <li className="border-t pt-5" style={{ borderColor: 'var(--line)' }} onClick={() => setOpen(false)}>
+              <LanguageSwitch />
+            </li>
           </ul>
           <p className="meta">{profile.title}</p>
         </nav>

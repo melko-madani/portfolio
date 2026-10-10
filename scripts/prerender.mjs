@@ -24,6 +24,7 @@ for (const route of routes) {
   const html = render(route, year)
   const meta = getRouteMeta(route)
   const page = template
+    .replace('<html lang="en"', `<html lang="${meta.locale}"`)
     .replace(/<!--seo-->[\s\S]*?<!--\/seo-->/, renderHeadTags(meta))
     .replace('<div id="root"><!--app-html--></div>', `<div id="root" data-year="${year}" data-route="${route}">${html}</div>`)
 

@@ -2,7 +2,7 @@
 
 Everything on the site is backed by a source (internship report, MP Maroc code, the earlier portfolio draft) or deliberately left generic. The items below are the only places where a fact is provisional, hidden, or needs Yassine's go-ahead. Each one points at the file to edit.
 
-## 1. Contact and links — `src/content/en/site.ts`
+## 1. Contact and links — `src/content/site.ts`
 
 | Item | Current state | What to do |
 |---|---|---|
@@ -12,7 +12,7 @@ Everything on the site is backed by a source (internship report, MP Maroc code, 
 | CV | None found → "Download CV" hidden | Drop a PDF in `public/cv/` and set `cvPath`. |
 | Phone number | Present in the previous draft, intentionally **not** published | Decide whether a public phone number is wanted (not recommended). |
 | Availability badge | Disabled | Set `availability.enabled: true` and adjust the label only if you want it displayed. |
-| Site URL | Placeholder `https://yassinemadani.example` | Replace with the final domain (used for canonical and Open Graph URLs), then run `npm run build`. |
+| Site URL | Placeholder `https://yassinemadani.example` | Replace with the final domain (used for canonical, Open Graph and hreflang URLs), then run `npm run build`. |
 
 ## 2. Experience — `src/content/en/experience.ts`
 
@@ -52,4 +52,6 @@ Everything on the site is backed by a source (internship report, MP Maroc code, 
 
 ## 5. Language
 
-The initial version is English only, as recommended. The content layer is locale-ready: duplicate `src/content/en/` into `src/content/fr/`, type it with the same `Content` interface, register it in `src/content/index.ts`, and the components will render it unchanged. No language switcher is shown until a second locale exists.
+Both English (`/`) and French (`/fr`) versions are live and prerendered, with a working language switch. The French copy is a faithful translation of the English content with the same facts and caveats; please proofread it once (`src/content/fr/`), in particular the job titles (`Solutions IA & digitales`, `Ingénieur IA`) and the degree names, which follow the brief's wording.
+
+There is no automatic language detection or redirect: visitors land on the language of the URL they open, and `x-default` points search engines to English. Say if you prefer French as the default.

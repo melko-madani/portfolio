@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import { content } from '../../content'
+import { useContent, useHref } from '../../lib/locale'
 import { Cta, Tag } from '../ui'
 import { HeroArtwork } from './HeroArtwork'
 
@@ -16,7 +16,9 @@ function Line({ children, delay, className = '' }: { children: React.ReactNode; 
 }
 
 export function Hero() {
-  const { profile, site, ui } = content
+  const { profile, site, ui } = useContent()
+  const href = useHref()
+  const [line1, line2, line3] = profile.headline
   return (
     <section className="relative overflow-x-clip pt-28 pb-16 sm:pt-36 md:pb-24 lg:pt-40" aria-labelledby="hero-heading">
       <div className="container-grid">
@@ -24,13 +26,13 @@ export function Hero() {
           <div className="col-span-12 lg:col-span-7">
             <p className="eyebrow rise flex flex-wrap items-center gap-x-3 gap-y-2" style={rise(0)}>
               <span>{profile.title}</span>
-              {site.availability.enabled && <Tag tone="accent">{site.availability.label}</Tag>}
+              {site.availability.enabled && <Tag tone="accent">{profile.availabilityLabel}</Tag>}
             </p>
             <h1 id="hero-heading" className="display-xl mt-8">
-              <Line delay={120}>Turning complex</Line>
-              <Line delay={220}>workflows into</Line>
+              <Line delay={120}>{line1}</Line>
+              <Line delay={220}>{line2}</Line>
               <Line delay={320} className="italic text-sage-deep">
-                intelligent systems.
+                {line3}
               </Line>
             </h1>
             <ul className="rise meta mt-8 flex flex-wrap gap-x-4 gap-y-1.5" style={rise(520)}>
@@ -52,8 +54,8 @@ export function Hero() {
               {profile.intro}
             </p>
             <div className="rise col-span-12 flex flex-wrap gap-3 md:col-span-5 md:justify-end lg:col-span-6" style={rise(500)}>
-              <Cta to="/#work">{ui.hero.primaryCta}</Cta>
-              <Cta to="/#contact" variant="ghost">
+              <Cta to={href('/#work')}>{ui.hero.primaryCta}</Cta>
+              <Cta to={href('/#contact')} variant="ghost">
                 {ui.hero.secondaryCta}
               </Cta>
             </div>

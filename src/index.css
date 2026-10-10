@@ -661,3 +661,8 @@
     max-width: 21rem;
   }
 }
+
+/* French headline lines run longer than the English ones: keep them on three lines on wide screens. */
+:lang(fr) .display-xl {
+  font-size: clamp(2.75rem, 6.2vw, 5.75rem);
+}

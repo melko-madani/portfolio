@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
-import { content } from '../../content'
 import type { Project } from '../../content/types'
+import { useContent, useHref } from '../../lib/locale'
 import { Reveal } from '../Reveal'
 import { Arrow, SectionHeading } from '../ui'
 import { ProjectVisual } from '../visuals/ProjectVisual'
 
 function ProjectMeta({ project }: { project: Project }) {
-  const { ui } = content
+  const { ui } = useContent()
   return (
     <dl className="grid grid-cols-2 gap-x-6 gap-y-4 text-sm sm:grid-cols-3">
       <div>
@@ -15,7 +15,7 @@ function ProjectMeta({ project }: { project: Project }) {
       </div>
       <div>
         <dt className="eyebrow">{ui.work.role}</dt>
-        <dd className="mt-1 leading-snug text-ink-2">{project.role.split(':')[0].split(',')[0]}</dd>
+        <dd className="mt-1 leading-snug text-ink-2">{project.roleShort}</dd>
       </div>
       {project.stack.length > 0 && (
         <div className="col-span-2 sm:col-span-1">
@@ -28,6 +28,8 @@ function ProjectMeta({ project }: { project: Project }) {
 }
 
 function ProjectTitle({ project, as: Tag = 'h3' }: { project: Project; as?: 'h3' }) {
+  const { ui } = useContent()
+  const href = useHref()
   return (
     <div className="work-title flex items-start gap-5 sm:gap-7">
       <span className="numeral -mt-1 shrink-0" aria-hidden="true">
@@ -35,11 +37,13 @@ function ProjectTitle({ project, as: Tag = 'h3' }: { project: Project; as?: 'h3'
       </span>
       <div>
         <p className="eyebrow flex items-center gap-3">
-          <span className="sr-only">Project {project.number} — </span>
+          <span className="sr-only">
+            {ui.work.projectPrefix} {project.number} —{' '}
+          </span>
           <span>{project.category}</span>
         </p>
         <Tag className="display-md mt-3">
-          <Link to={`/work/${project.slug}`} className="no-underline text-ink">
+          <Link to={href(`/work/${project.slug}`)} className="no-underline text-ink">
             {project.title}
             <span className="subtitle block font-display italic text-ink-3">{project.subtitle}</span>
           </Link>
@@ -50,18 +54,22 @@ function ProjectTitle({ project, as: Tag = 'h3' }: { project: Project; as?: 'h3'
 }
 
 function ReadMore({ project }: { project: Project }) {
+  const { ui } = useContent()
+  const href = useHref()
   return (
-    <Link to={`/work/${project.slug}`} className="btn btn-ghost mt-2 self-start">
-      {content.ui.work.readCaseStudy}
+    <Link to={href(`/work/${project.slug}`)} className="btn btn-ghost mt-2 self-start">
+      {ui.work.readCaseStudy}
       <Arrow />
     </Link>
   )
 }
 
 function VisualFrame({ project }: { project: Project }) {
+  const { ui } = useContent()
+  const href = useHref()
   return (
     <figure>
-      <Link to={`/work/${project.slug}`} aria-label={`${project.title} — ${content.ui.work.readCaseStudy}`} tabIndex={-1} className="block">
+      <Link to={href(`/work/${project.slug}`)} aria-label={`${project.title} — ${ui.work.readCaseStudy}`} tabIndex={-1} className="block">
         <ProjectVisual kind={project.visual} />
       </Link>
       <figcaption className="meta mt-3">{project.visualCaption}</figcaption>
@@ -128,7 +136,7 @@ function CompactProject({ project }: { project: Project }) {
 }
 
 export function Work() {
-  const { ui, projects } = content
+  const { ui, projects } = useContent()
   const featured = projects.filter((p) => p.featured)
   return (
     <section id="work" className="scroll-mt-24 py-20 md:py-28" aria-labelledby="work-label">

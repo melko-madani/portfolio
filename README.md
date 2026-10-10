@@ -47,11 +47,12 @@ Before the first deployment, set `siteUrl` in `src/content/en/site.ts` to the fi
 
 ## Editing content
 
-All copy and facts live in `src/content/en/` — the components never hardcode text.
+All copy and facts live in `src/content/en/` and `src/content/fr/` — the components never hardcode text.
 
 | File | Contains |
 |---|---|
-| `site.ts` | Email, LinkedIn, GitHub, CV path, availability toggle, employer-name toggle, site URL, hero profile |
+| `../site.ts` | Email, LinkedIn, GitHub, CV path, availability toggle, employer-name toggle, site URL (shared by all languages) |
+| `profile.ts` | Name, titles, headline lines, intro |
 | `projects.ts` | The projects and their case-study sections (`slug`, `status`, `role`, `stack`, `visual`, `layout`, `caseStudySections`, …) |
 | `experience.ts` | Experience entries, education, capabilities |
 | `ui.ts` | Navigation labels, section headings, about text, microcopy |
@@ -63,9 +64,11 @@ Open questions and provisional values are listed in [`CONTENT_TO_CONFIRM.md`](CO
 
 The four project visuals are hand-built HTML/SVG recreations in `src/components/visuals/`, drawn in the site's own design language with fictitious data. Replace any of them with a real screenshot by editing `ProjectVisual.tsx`.
 
-### Adding a language
+### Languages
 
-Create `src/content/fr/` with the same files and types, register the locale in `src/content/index.ts`, then add a route or switch in `App.tsx`. No decorative language selector is shipped until a second locale exists.
+The site is bilingual. English lives at the root (`/`, `/work/<slug>`) and French under `/fr` (`/fr`, `/fr/work/<slug>`). Both are prerendered, each page carries `<html lang>`, `hreflang` alternates and a localised title and description, and the header and footer carry a working language switch that keeps you on the same page.
+
+Content per language lives in `src/content/en/` and `src/content/fr/`; `src/content/site.ts` holds the shared configuration. To add a third language, create `src/content/<code>/` with the same files, register it in `src/content/index.ts` (`locales`, `contents`) and add its two routes in `App.tsx`. The parity test in `content.test.ts` checks that every locale has the same projects and sections.
 
 ## Structure
 

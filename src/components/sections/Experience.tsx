@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
-import { content } from '../../content'
+import { useContent, useHref } from '../../lib/locale'
 import { Reveal } from '../Reveal'
 import { Arrow, SectionHeading } from '../ui'
 
 export function Experience() {
-  const { experience, education, projects, site, ui } = content
+  const { experience, education, projects, site, ui } = useContent()
+  const href = useHref()
   return (
     <section id="experience" className="theme-ink scroll-mt-24 bg-ink py-20 text-paper md:py-28" aria-labelledby="experience-label">
       <div className="container-grid">
@@ -23,7 +24,7 @@ export function Experience() {
                     <p className="meta flex items-center gap-3">
                       <span className="font-medium text-sand">{entry.period}</span>
                       <span aria-hidden="true" className="h-px w-4 bg-sand/50" />
-                      <span>{entry.kind === 'internship' ? 'Internship' : 'Role'}</span>
+                      <span>{entry.kind === 'internship' ? ui.experience.internshipKind : ui.experience.roleKind}</span>
                     </p>
                   </div>
                   <div className="col-span-12 md:col-span-5">
@@ -43,8 +44,8 @@ export function Experience() {
                       </ul>
                     )}
                     {related && entry.kind === 'internship' && (
-                      <Link to={`/work/${related.slug}`} className="link-rule mt-5 inline-flex items-center gap-2 text-sm text-sand">
-                        {related.title} case study
+                      <Link to={href(`/work/${related.slug}`)} className="link-rule mt-5 inline-flex items-center gap-2 text-sm text-sand">
+                        {related.title} {ui.experience.caseStudySuffix}
                         <Arrow />
                       </Link>
                     )}

@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
-import { content } from '../../content'
+import { useContent, useHref } from '../../lib/locale'
 import { ArrowUpRight } from '../ui'
+import { LanguageSwitch } from './Header'
 
 export function Footer({ year }: { year: number }) {
-  const { profile, site, ui } = content
+  const { profile, site, ui } = useContent()
+  const href = useHref()
   const links = [site.linkedin, site.github].filter((l): l is NonNullable<typeof l> => l !== null)
   return (
     <footer className="theme-ink bg-ink text-paper">
@@ -17,12 +19,15 @@ export function Footer({ year }: { year: number }) {
           <nav className="col-span-6 md:col-span-3" aria-label="Footer">
             <ul className="flex flex-col gap-2 text-sm">
               {ui.nav.map((item) => (
-                <li key={item.href}>
-                  <Link to={item.href} className="link-rule text-paper/80 hover:text-paper">
+                <li key={item.hash}>
+                  <Link to={href(`/#${item.hash}`)} className="link-rule text-paper/80 hover:text-paper">
                     {item.label}
                   </Link>
                 </li>
               ))}
+              <li className="pt-2">
+                <LanguageSwitch className="!text-paper/80 hover:!text-paper" />
+              </li>
             </ul>
           </nav>
           <div className="col-span-6 md:col-span-4">
@@ -36,12 +41,7 @@ export function Footer({ year }: { year: number }) {
               )}
               {links.map((link) => (
                 <li key={link.href}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="link-rule inline-flex items-center gap-1.5 text-paper/80 hover:text-paper"
-                  >
+                  <a href={link.href} target="_blank" rel="noopener noreferrer" className="link-rule inline-flex items-center gap-1.5 text-paper/80 hover:text-paper">
                     {link.label}
                     <ArrowUpRight />
                   </a>
@@ -50,7 +50,7 @@ export function Footer({ year }: { year: number }) {
               {site.cvPath && (
                 <li>
                   <a href={site.cvPath} className="link-rule text-paper/80 hover:text-paper" download>
-                    Download CV (PDF)
+                    {ui.footer.downloadCv}
                   </a>
                 </li>
               )}

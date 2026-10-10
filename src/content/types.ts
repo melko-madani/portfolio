@@ -1,8 +1,8 @@
-// Content model shared by every locale. Adding a French version means
-// creating `src/content/fr/*.ts` with these exact types — the components
-// never hardcode copy.
+// Content model shared by every locale. Each locale provides the exact same
+// structure (`src/content/en`, `src/content/fr`) — the components never
+// hardcode copy.
 
-export type Locale = 'en'
+export type Locale = 'en' | 'fr'
 
 export interface ExternalLink {
   label: string
@@ -11,6 +11,7 @@ export interface ExternalLink {
   verified: boolean
 }
 
+/** Locale-independent configuration (contact details, toggles, site URL). */
 export interface SiteConfig {
   /** Public email. Leave empty to hide email CTAs (the contact section then falls back to LinkedIn). */
   email: string
@@ -19,10 +20,10 @@ export interface SiteConfig {
   /** Path under /public to a real CV file. Leave null to hide the download link. */
   cvPath: string | null
   /** Availability indicator — disabled by default because the situation is unknown. */
-  availability: { enabled: boolean; label: string }
+  availability: { enabled: boolean }
   /** Whether employer names may appear publicly. */
   showEmployerNames: boolean
-  /** Canonical site URL, used for Open Graph tags once deployed. */
+  /** Canonical site URL, used for Open Graph and hreflang tags once deployed. */
   siteUrl: string
 }
 
@@ -30,20 +31,18 @@ export interface Profile {
   name: string
   firstName: string
   initials: string
+  /** Short label shown next to the wordmark in the header. */
+  shortTitle: string
   title: string
-  tagline: string
+  /** Three headline lines; the last one is set in italic sage. */
+  headline: [string, string, string]
   intro: string
   contextLine: string[]
+  availabilityLabel: string
   portrait: { src: string; alt: string; width: number; height: number }
 }
 
-export type ProjectStatus =
-  | 'internship'
-  | 'personal'
-  | 'academic'
-  | 'hackathon'
-  | 'prototype'
-  | 'production'
+export type ProjectStatus = 'internship' | 'personal' | 'academic' | 'hackathon' | 'prototype' | 'production'
 
 export interface CaseStudySection {
   id: string
@@ -68,6 +67,8 @@ export interface Project {
   statusLabel: string
   summary: string
   role: string
+  /** Short role used in the project list. */
+  roleShort: string
   /** Only set when confirmed by a source. */
   year?: string
   stack: string[]
@@ -117,22 +118,75 @@ export interface AboutContent {
   approach: { step: string; title: string; text: string }[]
 }
 
+export interface VisualLabels {
+  hero: { fields: string; local: string; tags: [string, string, string]; baseline: string }
+  btp: {
+    output: string
+    supplier: string
+    supplierValue: string
+    consistency: string
+    outbound: string
+    steps: string[]
+    invoiceAlt: string
+  }
+  streaming: {
+    title: string
+    producers: string
+    source: string
+    kafka: string
+    kafkaSub: string
+    kafkaNote: string
+    spark: string
+    sparkSub: string
+    sparkSteps: [string, string, string]
+    sparkNote: string
+    cassandra: string
+    cassandraSub: string
+    cassandraNote: string
+    metrics: string
+    metricsSub: string
+    metricsLabel: string
+    metricsNote: [string, string]
+  }
+  talent: {
+    title: string
+    signals: string
+    signalItems: [string, string, string]
+    proxies: [string, string]
+    orchestrator: string
+    orchestratorSub: string
+    steps: [string, string, string, string]
+    human: [string, string]
+    humanActions: string
+    discuss: string
+    outputs: [[string, string], [string, string], [string, string]]
+    feedback: string
+    safeguardsTitle: string
+    safeguards: [string, string]
+  }
+}
+
 export interface UiStrings {
+  localeName: string
+  /** Label of the link that switches to the other language, e.g. "Français" on the English site. */
+  switchLanguage: { label: string; ariaLabel: string }
   skipToContent: string
   mainNav: string
   openMenu: string
   closeMenu: string
-  nav: { label: string; href: string }[]
+  homeAria: string
+  nav: { label: string; hash: string }[]
   hero: { primaryCta: string; secondaryCta: string }
-  work: { eyebrow: string; heading: string; intro: string; readCaseStudy: string; role: string; status: string; stack: string }
+  work: { eyebrow: string; heading: string; intro: string; readCaseStudy: string; role: string; status: string; stack: string; projectPrefix: string }
   about: { eyebrow: string }
   capabilities: { eyebrow: string; heading: string }
-  experience: { eyebrow: string; heading: string; intro: string }
+  experience: { eyebrow: string; heading: string; intro: string; roleKind: string; internshipKind: string; caseStudySuffix: string }
   education: { eyebrow: string; heading: string }
-  contact: { eyebrow: string; heading: string; text: string; emailCta: string; linkedinCta: string }
-  footer: { rights: string; builtWith: string }
-  caseStudy: { backToWork: string; onThisPage: string; nextProject: string; overview: string }
+  contact: { eyebrow: string; headingBefore: string; headingAccent: string; headingAfter: string; text: string; emailCta: string; linkedinCta: string }
+  footer: { rights: string; builtWith: string; downloadCv: string }
+  caseStudy: { backToWork: string; onThisPage: string; nextProject: string; year: string; links: string }
   notFound: { heading: string; text: string; cta: string }
+  visuals: VisualLabels
 }
 
 export interface Content {

@@ -1,4 +1,5 @@
 import { useEffect, useRef, type CSSProperties } from 'react'
+import { useContent } from '../../lib/locale'
 
 /**
  * Hero artwork: a fan of annotated documents — invoices, notices, reports —
@@ -28,6 +29,7 @@ function SheetLines({ dark }: { dark?: boolean }) {
 }
 
 export function HeroArtwork() {
+  const h = useContent().ui.visuals.hero
   const wrapper = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -113,11 +115,11 @@ export function HeroArtwork() {
                       <rect x="22" y="56" width="110" height="18" rx="4" fill="none" stroke="var(--color-sage-deep)" strokeWidth="1.2" />
                       <rect x="22" y="188" width="78" height="18" rx="4" fill="none" stroke="var(--color-sage-deep)" strokeWidth="1.2" />
                       <rect x="112" y="232" width="84" height="18" rx="4" fill="none" stroke="var(--color-sage-deep)" strokeWidth="1.2" />
-                      <text x="26" y="282" fill="var(--color-sage-deep)" fontSize="9" letterSpacing="1.5">9 FIELDS · VALIDATED</text>
+                      <text x="26" y="282" fill="var(--color-sage-deep)" fontSize="9" letterSpacing="1.5">{h.fields}</text>
                     </>
                   )}
                   {dark && (
-                    <text x="28" y="282" fill="var(--color-sand)" fontSize="9" letterSpacing="1.5">LOCAL · NO CLOUD</text>
+                    <text x="28" y="282" fill="var(--color-sand)" fontSize="9" letterSpacing="1.5">{h.local}</text>
                   )}
                 </g>
               )
@@ -128,20 +130,20 @@ export function HeroArtwork() {
           <g className="float-tag" style={{ '--delay': '900ms', '--drift': '-6px' } as CSSProperties}>
             <rect x="346" y="86" width="176" height="34" rx="17" fill="var(--color-ink)" />
             <circle cx="366" cy="103" r="3.5" fill="var(--color-sage)" />
-            <text x="378" y="107" fill="var(--color-paper)" fontSize="10">montant_ttc · 3 432,00</text>
+            <text x="378" y="107" fill="var(--color-paper)" fontSize="10">{h.tags[0]}</text>
           </g>
           <g className="float-tag" style={{ '--delay': '1050ms', '--drift': '7px' } as CSSProperties}>
             <rect x="18" y="330" width="138" height="34" rx="17" fill="#fbfaf7" stroke="rgba(23,25,24,0.2)" />
-            <text x="34" y="351" fill="var(--color-ink)" fontSize="10">date limite · J-6</text>
+            <text x="34" y="351" fill="var(--color-ink)" fontSize="10">{h.tags[1]}</text>
           </g>
           <g className="float-tag" style={{ '--delay': '1200ms', '--drift': '-5px' } as CSSProperties}>
             <rect x="400" y="400" width="112" height="34" rx="17" fill="var(--color-sage-deep)" />
-            <text x="416" y="421" fill="var(--color-paper)" fontSize="10">TTC = HT × 1.20 ✓</text>
+            <text x="416" y="421" fill="var(--color-paper)" fontSize="10">{h.tags[2]}</text>
           </g>
 
           {/* Baseline */}
           <line x1="80" y1="470" x2="480" y2="470" stroke="rgba(23,25,24,0.18)" />
-          <text x="80" y="492" fill="var(--color-muted)" fontSize="9" letterSpacing="1.5">DOCUMENTS → STRUCTURE → DECISIONS</text>
+          <text x="80" y="492" fill="var(--color-muted)" fontSize="9" letterSpacing="1.5">{h.baseline}</text>
         </svg>
       </div>
     </div>

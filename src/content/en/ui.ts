@@ -1,15 +1,18 @@
 import type { AboutContent, UiStrings } from '../types'
 
 export const ui: UiStrings = {
+  localeName: 'English',
+  switchLanguage: { label: 'Français', ariaLabel: 'Lire cette page en français' },
   skipToContent: 'Skip to content',
   mainNav: 'Main navigation',
   openMenu: 'Open menu',
   closeMenu: 'Close menu',
+  homeAria: 'Yassine Madani — home',
   nav: [
-    { label: 'Work', href: '/#work' },
-    { label: 'About', href: '/#about' },
-    { label: 'Experience', href: '/#experience' },
-    { label: 'Contact', href: '/#contact' },
+    { label: 'Work', hash: 'work' },
+    { label: 'About', hash: 'about' },
+    { label: 'Experience', hash: 'experience' },
+    { label: 'Contact', hash: 'contact' },
   ],
   hero: {
     primaryCta: 'Explore selected work',
@@ -24,6 +27,7 @@ export const ui: UiStrings = {
     role: 'Role',
     status: 'Status',
     stack: 'Stack',
+    projectPrefix: 'Project',
   },
   about: { eyebrow: 'About' },
   capabilities: {
@@ -35,11 +39,16 @@ export const ui: UiStrings = {
     heading: 'From business analysis to AI engineering.',
     intro:
       'Two complementary sides of the same practice: understanding how an organisation works, then building the systems that make it work better.',
+    roleKind: 'Role',
+    internshipKind: 'Internship',
+    caseStudySuffix: 'case study',
   },
   education: { eyebrow: 'Education', heading: 'Education' },
   contact: {
     eyebrow: 'Contact',
-    heading: 'Have a workflow that deserves a better system?',
+    headingBefore: 'Have a workflow that deserves a ',
+    headingAccent: 'better system',
+    headingAfter: '?',
     text: 'I am happy to discuss document processing, automation, data products or AI integration — starting with the problem, not the technology.',
     emailCta: 'Write me an email',
     linkedinCta: 'Connect on LinkedIn',
@@ -47,17 +56,80 @@ export const ui: UiStrings = {
   footer: {
     rights: 'All rights reserved.',
     builtWith: 'Designed and built with React, TypeScript and Tailwind CSS. Set in Instrument Serif, Inter and JetBrains Mono.',
+    downloadCv: 'Download CV (PDF)',
   },
   caseStudy: {
     backToWork: 'All work',
     onThisPage: 'On this page',
     nextProject: 'Next project',
-    overview: 'Overview',
+    year: 'Year',
+    links: 'Links',
   },
   notFound: {
     heading: 'This page does not exist.',
     text: 'The address may have changed, or the link you followed is out of date.',
     cta: 'Back to the homepage',
+  },
+  visuals: {
+    hero: {
+      fields: '9 FIELDS · VALIDATED',
+      local: 'LOCAL · NO CLOUD',
+      tags: ['montant_ttc · 3 432,00', 'date limite · J-6', 'TTC = HT × 1.20 ✓'],
+      baseline: 'DOCUMENTS → STRUCTURE → DECISIONS',
+    },
+    btp: {
+      output: 'Structured output',
+      supplier: 'Supplier',
+      supplierValue: 'atelier-nord · specialised prompt',
+      consistency: 'Consistency',
+      outbound: 'Outbound calls',
+      steps: ['PDF', 'OCR', 'Token repair', 'Supplier', 'Local LLM', 'Validation', 'JSON'],
+      invoiceAlt: 'A fictitious invoice. Nine fields are outlined to show what the pipeline extracts.',
+    },
+    streaming: {
+      title:
+        'Producers publish to Kafka topics, Spark Streaming processes micro-batches, results land in a Cassandra cluster; Prometheus and Grafana observe every stage.',
+      producers: 'PRODUCERS',
+      source: 'source',
+      kafka: 'Apache Kafka',
+      kafkaSub: 'topics · partitions',
+      kafkaNote: 'events in order',
+      spark: 'Spark Streaming',
+      sparkSub: 'micro-batches',
+      sparkSteps: ['clean', 'enrich', 'aggregate'],
+      sparkNote: 'stateless · scalable',
+      cassandra: 'Cassandra',
+      cassandraSub: 'cluster · 3 nodes',
+      cassandraNote: 'replicated writes',
+      metrics: 'Prometheus + Grafana',
+      metricsSub: 'consumer lag · throughput · node health',
+      metricsLabel: 'METRICS',
+      metricsNote: ['scraped from', 'every stage'],
+    },
+    talent: {
+      title:
+        'Workload, task complexity and contribution signals feed an orchestrator that drafts analyses; every output passes through a human reviewer before becoming review preparation, training suggestions or mobility options.',
+      signals: 'SIGNALS',
+      signalItems: ['workload', 'task complexity', 'contributions'],
+      proxies: ['partial proxies —', 'may encode bias'],
+      orchestrator: 'Orchestrator',
+      orchestratorSub: 'drafts · never decides',
+      steps: ['consolidate signals', 'surface patterns', 'draft talking points', 'cite its sources'],
+      human: ['Human', 'review'],
+      humanActions: 'challenge · adjust · reject',
+      discuss: 'TO DISCUSS',
+      outputs: [
+        ['review', 'preparation'],
+        ['training', 'suggestions'],
+        ['mobility', 'options'],
+      ],
+      feedback: 'reviewer feedback improves the next draft',
+      safeguardsTitle: 'Safeguards built into the concept',
+      safeguards: [
+        'no autonomous HR decision · every recommendation is traceable to its signals',
+        'consent and data-protection review required before any real deployment',
+      ],
+    },
   },
 }
 

@@ -1,0 +1,151 @@
+import type { AboutContent, UiStrings } from '../types'
+
+export const ui: UiStrings = {
+  localeName: 'Français',
+  switchLanguage: { label: 'English', ariaLabel: 'Read this page in English' },
+  skipToContent: 'Aller au contenu',
+  mainNav: 'Navigation principale',
+  openMenu: 'Ouvrir le menu',
+  closeMenu: 'Fermer le menu',
+  homeAria: 'Yassine Madani — accueil',
+  nav: [
+    { label: 'Projets', hash: 'work' },
+    { label: 'À propos', hash: 'about' },
+    { label: 'Parcours', hash: 'experience' },
+    { label: 'Contact', hash: 'contact' },
+  ],
+  hero: {
+    primaryCta: 'Découvrir les projets',
+    secondaryCta: 'Me contacter',
+  },
+  work: {
+    eyebrow: 'Projets sélectionnés',
+    heading: 'Des systèmes construits autour de vrais problèmes opérationnels.',
+    intro:
+      'Quatre projets, chacun présenté avec son statut exact et mon rôle réel : un outil d’intelligence documentaire livré en stage, un produit data sur les marchés publics, une architecture de streaming académique et un concept de hackathon.',
+    readCaseStudy: 'Lire l’étude de cas',
+    role: 'Rôle',
+    status: 'Statut',
+    stack: 'Stack',
+    projectPrefix: 'Projet',
+  },
+  about: { eyebrow: 'À propos' },
+  capabilities: {
+    eyebrow: 'Compétences',
+    heading: 'Organisées par problèmes résolus, pas par logos.',
+  },
+  experience: {
+    eyebrow: 'Parcours',
+    heading: 'De l’analyse métier à l’ingénierie IA.',
+    intro:
+      'Deux faces complémentaires d’une même pratique : comprendre comment une organisation fonctionne, puis construire les systèmes qui la font mieux fonctionner.',
+    roleKind: 'Poste',
+    internshipKind: 'Stage',
+    caseStudySuffix: '— étude de cas',
+  },
+  education: { eyebrow: 'Formation', heading: 'Formation' },
+  contact: {
+    eyebrow: 'Contact',
+    headingBefore: 'Un workflow qui mérite un ',
+    headingAccent: 'meilleur système',
+    headingAfter: ' ?',
+    text: 'Je discute volontiers de traitement documentaire, d’automatisation, de produits data ou d’intégration de l’IA — en partant du problème, pas de la technologie.',
+    emailCta: 'M’écrire un email',
+    linkedinCta: 'Me contacter sur LinkedIn',
+  },
+  footer: {
+    rights: 'Tous droits réservés.',
+    builtWith: 'Conçu et développé avec React, TypeScript et Tailwind CSS. Composé en Instrument Serif, Inter et JetBrains Mono.',
+    downloadCv: 'Télécharger le CV (PDF)',
+  },
+  caseStudy: {
+    backToWork: 'Tous les projets',
+    onThisPage: 'Sur cette page',
+    nextProject: 'Projet suivant',
+    year: 'Année',
+    links: 'Liens',
+  },
+  notFound: {
+    heading: 'Cette page n’existe pas.',
+    text: 'L’adresse a peut-être changé, ou le lien que vous avez suivi n’est plus à jour.',
+    cta: 'Retour à l’accueil',
+  },
+  visuals: {
+    hero: {
+      fields: '9 CHAMPS · VALIDÉS',
+      local: 'LOCAL · SANS CLOUD',
+      tags: ['montant_ttc · 3 432,00', 'date limite · J-6', 'TTC = HT × 1,20 ✓'],
+      baseline: 'DOCUMENTS → STRUCTURE → DÉCISIONS',
+    },
+    btp: {
+      output: 'Sortie structurée',
+      supplier: 'Fournisseur',
+      supplierValue: 'atelier-nord · prompt spécialisé',
+      consistency: 'Cohérence',
+      outbound: 'Appels sortants',
+      steps: ['PDF', 'OCR', 'Réparation', 'Fournisseur', 'LLM local', 'Validation', 'JSON'],
+      invoiceAlt: 'Une facture fictive. Neuf champs sont encadrés pour montrer ce que le pipeline extrait.',
+    },
+    streaming: {
+      title:
+        'Les producteurs publient dans des topics Kafka, Spark Streaming traite des micro-lots, les résultats sont stockés dans un cluster Cassandra ; Prometheus et Grafana observent chaque étape.',
+      producers: 'PRODUCTEURS',
+      source: 'source',
+      kafka: 'Apache Kafka',
+      kafkaSub: 'topics · partitions',
+      kafkaNote: 'événements ordonnés',
+      spark: 'Spark Streaming',
+      sparkSub: 'micro-lots',
+      sparkSteps: ['nettoyer', 'enrichir', 'agréger'],
+      sparkNote: 'sans état · scalable',
+      cassandra: 'Cassandra',
+      cassandraSub: 'cluster · 3 nœuds',
+      cassandraNote: 'écritures répliquées',
+      metrics: 'Prometheus + Grafana',
+      metricsSub: 'lag consommateur · débit · santé des nœuds',
+      metricsLabel: 'MÉTRIQUES',
+      metricsNote: ['collectées à', 'chaque étape'],
+    },
+    talent: {
+      title:
+        'Les signaux de charge, de complexité et de contribution alimentent un orchestrateur qui prépare des analyses ; chaque sortie passe par un relecteur humain avant de devenir une préparation d’entretien, des suggestions de formation ou des pistes de mobilité.',
+      signals: 'SIGNAUX',
+      signalItems: ['charge de travail', 'complexité', 'contributions'],
+      proxies: ['indicateurs partiels —', 'biais possibles'],
+      orchestrator: 'Orchestrateur',
+      orchestratorSub: 'prépare · ne décide jamais',
+      steps: ['consolider les signaux', 'dégager des tendances', 'rédiger des points clés', 'citer ses sources'],
+      human: ['Revue', 'humaine'],
+      humanActions: 'contester · ajuster · rejeter',
+      discuss: 'À DISCUTER',
+      outputs: [
+        ['préparation', 'd’entretien'],
+        ['pistes de', 'formation'],
+        ['options de', 'mobilité'],
+      ],
+      feedback: 'le retour du relecteur améliore la version suivante',
+      safeguardsTitle: 'Garde-fous intégrés au concept',
+      safeguards: [
+        'aucune décision RH autonome · chaque recommandation est traçable jusqu’à ses signaux',
+        'consentement et revue RGPD requis avant tout déploiement réel',
+      ],
+    },
+  },
+}
+
+export const about: AboutContent = {
+  heading: 'Je construis la technologie autour de la façon dont les gens travaillent vraiment.',
+  paragraphs: [
+    'Mon parcours va du génie informatique et des systèmes d’information aux systèmes intelligents et à la data science, avec un détour par l’analyse métier. Ce détour compte : avant d’écrire une ligne de code, je veux comprendre le processus, les contraintes et les personnes qui vivront avec le résultat.',
+    'L’essentiel de mon travail se situe là où un problème métier rencontre les données et le logiciel : extraire une information structurée de documents hétérogènes sans les envoyer dans le cloud, transformer un flot de données publiques en veille exploitable, ou cadrer la façon dont un assistant IA peut soutenir une équipe sans remplacer le jugement humain.',
+    'Je préfère des objectifs mesurables aux impressions, des hypothèses explicites aux hypothèses implicites, et un système simple qui est maintenu à un système astucieux qui est abandonné. Quand un problème n’a pas besoin d’un modèle, je le dis.',
+  ],
+  approachHeading: 'Ma façon de travailler',
+  approach: [
+    { step: '01', title: 'Comprendre', text: 'Cartographier le processus, les utilisateurs, les données et les contraintes opérationnelles avant de proposer quoi que ce soit.' },
+    { step: '02', title: 'Cadrer', text: 'Formaliser le besoin en objectifs mesurables et critères d’acceptation que l’on peut vérifier, pas débattre.' },
+    { step: '03', title: 'Concevoir', text: 'Choisir l’architecture la plus simple qui respecte les contraintes — locale, cloud, à base de règles ou de modèle.' },
+    { step: '04', title: 'Construire', text: 'Implémenter par petites itérations, avec des spécifications, des tests et une boucle d’évaluation dès la première semaine.' },
+    { step: '05', title: 'Valider', text: 'Mesurer face aux critères, documenter ce qui n’a pas fonctionné, et livrer quelque chose que l’on peut maintenir.' },
+  ],
+}

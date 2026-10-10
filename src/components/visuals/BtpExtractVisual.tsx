@@ -14,7 +14,7 @@ const FIELDS: { key: string; value: string; highlight?: boolean }[] = [
   { key: 'adresse_travaux', value: '"14 rue des Tilleuls"' },
 ]
 
-const STEPS = ['PDF', 'OCR', 'Token repair', 'Supplier', 'Local LLM', 'Validation', 'JSON']
+import { useContent } from '../../lib/locale'
 
 function Field({ children, label }: { children: React.ReactNode; label: string }) {
   return (
@@ -28,12 +28,14 @@ function Field({ children, label }: { children: React.ReactNode; label: string }
 }
 
 export function BtpExtractVisual() {
+  const { btp } = useContent().ui.visuals
+  const STEPS = btp.steps
   return (
     <div className="plate plate-inner">
       <div aria-hidden="true" className="plate-grid pointer-events-none absolute inset-0" />
       <div className="relative grid gap-4 p-4 sm:p-6 lg:grid-cols-[1.1fr_1fr] lg:gap-6 lg:p-8">
         {/* Invoice sheet */}
-        <figure className="ui-surface relative min-w-0 overflow-hidden px-5 pb-5 pt-7 sm:px-7 sm:pt-8" aria-label="Fictitious invoice with highlighted fields">
+        <figure className="ui-surface relative min-w-0 overflow-hidden px-5 pb-5 pt-7 sm:px-7 sm:pt-8" aria-label={btp.invoiceAlt}>
           <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-12">
             <div className="scanline h-12 w-full bg-gradient-to-b from-transparent via-sage/25 to-transparent" />
           </div>
@@ -99,14 +101,14 @@ export function BtpExtractVisual() {
               </div>
             </div>
           </div>
-          <figcaption className="sr-only">A fictitious invoice. Nine fields are outlined to show what the pipeline extracts.</figcaption>
+          <figcaption className="sr-only">{btp.invoiceAlt}</figcaption>
         </figure>
 
         {/* JSON output + validation */}
         <div className="flex min-w-0 flex-col gap-4">
           <div className="theme-ink min-w-0 flex-1 rounded-lg bg-ink p-5 text-paper sm:p-6">
             <div className="flex items-center justify-between">
-              <p className="eyebrow">Structured output</p>
+              <p className="eyebrow">{btp.output}</p>
               <p className="meta flex items-center gap-2">
                 <span className="pulse-dot inline-block size-1.5 rounded-full bg-sage" aria-hidden="true" />
                 local · gemma2:9b
@@ -129,15 +131,15 @@ export function BtpExtractVisual() {
           </div>
           <dl className="ui-surface grid gap-x-6 gap-y-3 p-4 font-mono text-[0.6875rem] sm:grid-cols-3 sm:p-5">
             <div>
-              <dt className="ui-muted">Supplier</dt>
-              <dd className="mt-0.5 text-ink">atelier-nord · specialised prompt</dd>
+              <dt className="ui-muted">{btp.supplier}</dt>
+              <dd className="mt-0.5 text-ink">{btp.supplierValue}</dd>
             </div>
             <div>
-              <dt className="ui-muted">Consistency</dt>
+              <dt className="ui-muted">{btp.consistency}</dt>
               <dd className="mt-0.5 text-sage-deep">TTC = HT × 1.20 ✓</dd>
             </div>
             <div>
-              <dt className="ui-muted">Outbound calls</dt>
+              <dt className="ui-muted">{btp.outbound}</dt>
               <dd className="mt-0.5 text-ink">0</dd>
             </div>
           </dl>

@@ -1,9 +1,9 @@
-import { content } from '../../content'
+import { useContent } from '../../lib/locale'
 import { Reveal } from '../Reveal'
 import { Cta } from '../ui'
 
 export function Contact() {
-  const { site, ui } = content
+  const { site, ui } = useContent()
   const hasEmail = site.email.trim().length > 0
   return (
     <section id="contact" className="theme-ink scroll-mt-24 bg-ink pb-16 pt-24 text-paper md:pb-24 md:pt-32" aria-labelledby="contact-heading">
@@ -15,7 +15,9 @@ export function Contact() {
             <span>{ui.contact.eyebrow}</span>
           </p>
           <h2 id="contact-heading" className="display-lg mt-8 max-w-[16ch]">
-            Have a workflow that deserves a <em className="not-italic font-display italic text-sand">better system</em>?
+            {ui.contact.headingBefore}
+            <em className="not-italic font-display italic text-sand">{ui.contact.headingAccent}</em>
+            {ui.contact.headingAfter}
           </h2>
         </Reveal>
         <Reveal className="grid-12 mt-10 gap-y-8 md:mt-14" delay={80}>
