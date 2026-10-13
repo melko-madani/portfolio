@@ -7,8 +7,9 @@ import { StoryPattern } from './StoryPattern'
 /**
  * The story deck: a native <dialog> (focus trap, Escape, inert background)
  * showing the chosen story as a landscape card, with the other cards stacked
- * behind it. Previous / next buttons, arrow keys and clicking a card behind
- * move through the deck; the backdrop or the close button dismiss it.
+ * behind it. Previous / next buttons, arrow keys, the mouse wheel or trackpad,
+ * a touch swipe and clicking a card behind all move through the deck; the
+ * backdrop or the close button dismiss it.
  */
 export function StoryDialog() {
   const { stories, ui } = useContent()
@@ -23,15 +24,87 @@ export function StoryDialog() {
     if (!isOpen && dialog.open) dialog.close()
   }, [isOpen])
 
+  // Keyboard, mouse wheel / trackpad and touch swipe all move through the deck.
+  // The current index and the wheel lock live in refs so the listeners are
+  // registered once per opening and keep their cooldown across card changes.
+  const indexRef = useRef(0)
+  indexRef.current = openIndex ?? 0
+  const wheelLock = useRef({ accum: 0, locked: false, timer: 0 })
+  const touchStart = useRef<{ x: number; y: number; inBody: boolean } | null>(null)
+
   useEffect(() => {
     if (!isOpen) return
+    const dialog = ref.current
+    if (!dialog) return
+    const count = stories.length
+    const step = (delta: number) => go((indexRef.current + delta + count) % count)
+    const lock = wheelLock.current
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') go((openIndex + 1) % stories.length)
-      if (e.key === 'ArrowLeft') go((openIndex - 1 + stories.length) % stories.length)
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') step(1)
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') step(-1)
     }
+
+    // Wheel: accumulate small trackpad deltas, fire once per gesture, then cool down.
+    const onWheel = (e: WheelEvent) => {
+      const body = (e.target as HTMLElement | null)?.closest('.story-sheet-body')
+      // Let a long story text scroll inside its own panel before the deck moves.
+      if (body && body.scrollHeight > body.clientHeight + 2) {
+        const atTop = body.scrollTop <= 0 && e.deltaY < 0
+        const atBottom = body.scrollTop + body.clientHeight >= body.scrollHeight - 1 && e.deltaY > 0
+        if (!atTop && !atBottom) return
+      }
+      e.preventDefault()
+      if (lock.locked) return
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY
+      lock.accum += delta
+      if (Math.abs(lock.accum) < 60) return
+      step(lock.accum > 0 ? 1 : -1)
+      lock.accum = 0
+      lock.locked = true
+      window.clearTimeout(lock.timer)
+      lock.timer = window.setTimeout(() => {
+        lock.locked = false
+      }, 650)
+    }
+
+    // Touch swipe: horizontal or vertical, 48px threshold. Inside a scrollable
+    // story text, only horizontal swipes move the deck.
+    const onTouchStart = (e: TouchEvent) => {
+      const t = e.touches[0]
+      if (!t) return
+      const body = (e.target as HTMLElement | null)?.closest('.story-sheet-body')
+      const inBody = !!body && body.scrollHeight > body.clientHeight + 2
+      touchStart.current = { x: t.clientX, y: t.clientY, inBody }
+    }
+    const onTouchEnd = (e: TouchEvent) => {
+      const s0 = touchStart.current
+      const t = e.changedTouches[0]
+      touchStart.current = null
+      if (!s0 || !t) return
+      const dx = t.clientX - s0.x
+      const dy = t.clientY - s0.y
+      const horizontal = Math.abs(dx) > Math.abs(dy)
+      if (s0.inBody && !horizontal) return
+      const delta = horizontal ? dx : dy
+      if (Math.abs(delta) < 48) return
+      step(delta < 0 ? 1 : -1)
+    }
+
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [isOpen, openIndex, go, stories.length])
+    dialog.addEventListener('wheel', onWheel, { passive: false })
+    dialog.addEventListener('touchstart', onTouchStart, { passive: true })
+    dialog.addEventListener('touchend', onTouchEnd)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      dialog.removeEventListener('wheel', onWheel)
+      dialog.removeEventListener('touchstart', onTouchStart)
+      dialog.removeEventListener('touchend', onTouchEnd)
+      window.clearTimeout(lock.timer)
+      lock.locked = false
+      lock.accum = 0
+    }
+  }, [isOpen, go, stories.length])
 
   const current = openIndex ?? 0
 
