@@ -37,6 +37,12 @@ Everything on the site is backed by a source (internship report, MP Maroc code, 
 - Production status: the tool was delivered to the company; whether it is still in daily use is not confirmed, so the status reads "End-of-studies internship project".
 - Company name: shown, see `showEmployerNames` above.
 
+**Signal-driven lead engine** (added 13 October 2026 from the `fisc_leads` and `it-leads` repositories, both authored by you)
+- Presented deliberately without sector, employer, client or market, as requested; the stack, architecture, iterations and safeguards come from the code and its specification.
+- Status reads "built end to end"; the implementation log notes that a job-postings API, the contact-enrichment service and the CRM instance were still being activated. Confirm whether it is now in daily use, and whether your employer agrees to this anonymised description.
+- Outreach: the code hands validated batches to the CRM and handles opt-outs from a sequencing tool; automatic reminders and escalations exist in the companion case-workflow engine. **Automated e-mail sequences to prospects and meeting booking with a sales rep were not found in the repositories**, so the site says "hand-off with automated follow-ups" rather than "schedules meetings". Tell me if a sequencing or booking tool is wired up and I will add it.
+- Figures: no conversion, volume or revenue numbers are shown; scores in the visual are fictitious.
+
 **MP Maroc**
 - Status set to "Personal project · in development" (code last touched October 2026). Confirm whether it is deployed at a public URL (none is linked) and whether anyone else contributed.
 - Feature list was read from the current code (saved searches, alerts, member accounts, AI bid assistant). Remove anything you do not want to advertise yet.

@@ -31,7 +31,7 @@ export const ui: UiStrings = {
     eyebrow: 'Selected work',
     heading: 'Systems built around real operational problems.',
     intro:
-      'Four projects, each presented with its exact status and my actual role: a document-intelligence tool delivered during an internship, a public-procurement data product, an academic streaming architecture and a hackathon concept.',
+      'Five projects, each presented with its exact status and my actual role: a document-intelligence tool delivered during an internship, a sector-agnostic lead engine, a public-procurement data product, an academic streaming architecture and a hackathon concept.',
     readCaseStudy: 'Read the case study',
     role: 'Role',
     status: 'Status',
@@ -80,6 +80,33 @@ export const ui: UiStrings = {
     cta: 'Back to the homepage',
   },
   visuals: {
+    lead: {
+      sources: 'Sources',
+      sourceItems: [
+        ['Company registry', 'monthly'],
+        ['Legal announcements', 'daily'],
+        ['Job postings', 'daily'],
+        ['Public procurement', 'monthly'],
+        ['Company websites', 'weekly'],
+      ],
+      accounts: 'Accounts',
+      sortedBy: 'sorted by score',
+      rows: [
+        { name: 'Example Logistics Ltd', meta: '120 staff · 3 sites', signals: ['3 admin hires +25', 'headcount up +15', 'verified site +5'], tier: 'Tier A', score: '72 / 100' },
+        { name: 'Example Property Group', meta: '60 staff · 1 site', signals: ['public contract won +20', 'new director +10'], tier: 'Tier B', score: '54 / 100' },
+        { name: 'Example Workshop SAS', meta: '25 staff', signals: ['no active signal'], tier: 'Tier C', score: '18 / 100' },
+      ],
+      explained: 'Every point carries its source and collection date.',
+      handoff: 'Hand-off',
+      steps: [
+        ['Review queue', 'exclusions · uncertain matches'],
+        ['Decision-maker contacts', 'enriched once eligible'],
+        ['Batch validated by sales', 'tier A and B only'],
+        ['CRM sync + follow-ups', 'no duplicates · opt-out webhook'],
+      ],
+      privacy: 'retention purge · monthly',
+      schedule: ['Daily signals', 'Weekly crawl', 'Monthly registry', 'Hourly freshness check'],
+    },
     btp: {
       output: 'Structured output',
       supplier: 'Supplier',

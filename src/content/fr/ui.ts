@@ -31,7 +31,7 @@ export const ui: UiStrings = {
     eyebrow: 'Projets sélectionnés',
     heading: 'Des systèmes construits autour de vrais problèmes opérationnels.',
     intro:
-      'Quatre projets, chacun présenté avec son statut exact et mon rôle réel : un outil d’intelligence documentaire livré en stage, un produit data sur les marchés publics, une architecture de streaming académique et un concept de hackathon.',
+      'Cinq projets, chacun présenté avec son statut exact et mon rôle réel : un outil d’intelligence documentaire livré en stage, un moteur de leads indépendant du secteur, un produit data sur les marchés publics, une architecture de streaming académique et un concept de hackathon.',
     readCaseStudy: 'Lire l’étude de cas',
     role: 'Rôle',
     status: 'Statut',
@@ -80,6 +80,33 @@ export const ui: UiStrings = {
     cta: 'Retour à l’accueil',
   },
   visuals: {
+    lead: {
+      sources: 'Sources',
+      sourceItems: [
+        ['Registre des entreprises', 'mensuel'],
+        ['Annonces légales', 'quotidien'],
+        ['Offres d’emploi', 'quotidien'],
+        ['Marchés publics', 'mensuel'],
+        ['Sites web', 'hebdo'],
+      ],
+      accounts: 'Comptes',
+      sortedBy: 'triés par score',
+      rows: [
+        { name: 'Exemple Logistique SAS', meta: '120 salariés · 3 sites', signals: ['3 recrutements admin +25', 'effectif en hausse +15', 'site vérifié +5'], tier: 'Tier A', score: '72 / 100' },
+        { name: 'Exemple Immobilier SA', meta: '60 salariés · 1 site', signals: ['marché public remporté +20', 'nouveau dirigeant +10'], tier: 'Tier B', score: '54 / 100' },
+        { name: 'Exemple Atelier SARL', meta: '25 salariés', signals: ['aucun signal actif'], tier: 'Tier C', score: '18 / 100' },
+      ],
+      explained: 'Chaque point porte sa source et sa date de collecte.',
+      handoff: 'Transmission',
+      steps: [
+        ['File de revue', 'exclusions · rapprochements incertains'],
+        ['Contacts décideurs', 'enrichis une fois éligible'],
+        ['Lot validé par le commercial', 'tiers A et B seulement'],
+        ['Synchro CRM + relances', 'sans doublon · webhook d’opposition'],
+      ],
+      privacy: 'purge de conservation · mensuelle',
+      schedule: ['Signaux quotidiens', 'Crawl hebdo', 'Registre mensuel', 'Fraîcheur toutes les heures'],
+    },
     btp: {
       output: 'Sortie structurée',
       supplier: 'Fournisseur',

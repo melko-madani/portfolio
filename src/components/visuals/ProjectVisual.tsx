@@ -1,6 +1,7 @@
 import type { VisualKind } from '../../content/types'
 import { useContent } from '../../lib/locale'
 import { BtpExtractVisual } from './BtpExtractVisual'
+import { LeadEngineVisual } from './LeadEngineVisual'
 import { MpMarocVisual } from './MpMarocVisual'
 import { StreamingPipelineVisual } from './StreamingPipelineVisual'
 import { TalentOrchestratorVisual } from './TalentOrchestratorVisual'
@@ -14,6 +15,8 @@ export function ProjectVisual({ kind }: { kind: VisualKind }) {
   switch (kind) {
     case 'btpextract':
       return <BtpExtractVisual />
+    case 'lead-engine':
+      return <LeadEngineVisual t={visuals.lead} />
     case 'mp-maroc':
       return <MpMarocVisual />
     case 'streaming-pipeline':

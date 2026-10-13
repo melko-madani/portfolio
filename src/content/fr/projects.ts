@@ -132,8 +132,108 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'mp-maroc',
+    slug: 'lead-engine',
     number: '02',
+    title: 'Moteur de leads par signaux',
+    subtitle: 'Des sources publiques aux leads qualifiés, prêts pour la prospection',
+    category: 'Automatisation · Produit data',
+    status: 'professional',
+    statusLabel: 'Projet professionnel · construit de bout en bout',
+    summary:
+      'Une plateforme indépendante du secteur qui surveille des sources publiques, transforme ce qu’elle trouve en signaux d’intention, score et qualifie les organisations qui ont une raison d’agir maintenant, puis les transmet à l’équipe commerciale avec des contacts vérifiés, un score expliqué et des relances automatisées — chaque règle versionnée, chaque donnée traçable.',
+    role: 'Seul concepteur et développeur : spécification, modèle de données, collecteurs, moteur de règles, scoring, écrans, intégration CRM et planification.',
+    roleShort: 'Seul concepteur et développeur',
+    year: '2026',
+    stack: ['Python 3.12', 'FastAPI', 'PostgreSQL', 'DuckDB', 'SQLAlchemy · Alembic', 'Règles YAML', 'n8n', 'Docker', 'React', 'TypeScript', 'Classification LLM', 'SSO (Entra ID)'],
+    visual: 'lead-engine',
+    featured: true,
+    layout: 'split-reverse',
+    visualCaption: 'Recréation illustrative de la liste de comptes et de la transmission. Organisations, signaux et scores sont des exemples fictifs.',
+    seoDescription:
+      'Un moteur de leads indépendant du secteur : collecteurs de sources publiques, règles de signaux et de scoring versionnées, validation humaine, transmission au CRM et relances automatisées, avec FastAPI, PostgreSQL, n8n et React.',
+    links: [],
+    caseStudySections: [
+      {
+        id: 'overview',
+        heading: 'Vue d’ensemble',
+        paragraphs: [
+          'Les équipes commerciales ne manquent pas d’annuaires d’entreprises ; elles manquent d’une liste courte d’organisations qui ont une raison d’agir maintenant, avec un motif d’appel vérifiable. Cette plateforme produit exactement cette liste.',
+          'Elle collecte des sources publiques officielles, les consolide en un univers propre d’organisations, détecte des signaux d’intention, score chaque compte avec des règles expliquées et versionnées, puis transmet des lots validés au CRM avec les contacts décideurs. Segments cibles, signaux et pondérations sont de la configuration, pas du code — le même moteur sert donc plusieurs offres et secteurs.',
+        ],
+      },
+      {
+        id: 'problem',
+        heading: 'Le problème',
+        paragraphs: [
+          'Prospecter à partir de listes brutes gaspille les deux ressources les plus rares d’une petite équipe commerciale : l’attention et la crédibilité. Appeler une organisation sans motif abîme la relation ; courir après des données périmées gâche la matinée.',
+          'Le cadrage n’était donc pas « trouver des entreprises » mais « trouver celles qui ont une raison d’agir, dire pourquoi, le prouver, et garder le pipeline frais sans que personne ne le surveille ».',
+        ],
+      },
+      {
+        id: 'constraints',
+        heading: 'Contraintes',
+        bullets: [
+          'Traçabilité : chaque donnée affichée porte sa source, sa date de collecte et un lien pour la vérifier ; chaque score peut être expliqué après coup, même si la donnée a changé depuis.',
+          'Réutilisabilité : segments, exclusions, signaux et pondérations vivent dans des fichiers de règles versionnés et relus par pull request, jamais codés en dur.',
+          'Vie privée : les données personnelles n’entrent dans le système qu’une fois le compte éligible, les oppositions arrivent par un webhook signé, et une purge planifiée applique la durée de conservation.',
+          'Exploitabilité : des collecteurs idempotents que l’on peut relancer après une panne sans créer de doublons, et une alerte de fraîcheur quand un flux quotidien se tait.',
+        ],
+      },
+      {
+        id: 'role',
+        heading: 'Mon rôle',
+        paragraphs: [
+          'J’ai rédigé la spécification et le plan d’implémentation, puis construit la plateforme seul en quatre itérations : socle et univers d’organisations, signaux, scoring et écrans, puis contacts, CRM et vie privée. Les décisions d’architecture sont consignées dans de courts registres de décision à côté du code.',
+        ],
+      },
+      {
+        id: 'approach',
+        heading: 'Approche',
+        bullets: [
+          'Séparer ce qui est collecté de ce qui est décidé : les enregistrements bruts sont stockés tels quels et horodatés ; normalisation, résolution d’entités et règles s’exécutent au-dessus et peuvent être rejouées.',
+          'Faire du LLM un extracteur de faits, jamais un juge : il classe ce que fait une organisation à partir de son site public ; éligibilité et scoring restent déterministes.',
+          'Garder l’humain aux portes : exclusions ambiguës et rapprochements incertains partent en file de revue, et un lot n’atteint le CRM qu’après validation.',
+          'Mesurer avant de faire confiance : un jeu de référence de comptes annotés à la main vérifie que le filtre d’exclusion ne laisse rien passer, et un calibrage compare la pertinence attendue des signaux à ce que les relecteurs décident réellement.',
+        ],
+      },
+      {
+        id: 'system-design',
+        heading: 'Architecture du système',
+        paragraphs: ['Collecter → normaliser → décider → valider → transmettre.'],
+        bullets: [
+          'Des collecteurs, un par source : instantanés de registre, annonces légales, offres d’emploi, avis de marchés publics, annuaires sectoriels et sites web d’entreprises. Chacun écrit de façon idempotente dans un stockage brut indexé par empreinte de contenu.',
+          'Une couche cœur résout organisations, établissements et contacts sous un identifiant unique et conserve des instantanés mensuels, pour que croissance et changements de statut deviennent des signaux.',
+          'Un moteur de règles applique, dans l’ordre, un filtre d’exclusion, une détection de signaux avec poids, durée de vie et décroissance, puis un scoring adéquation + signal qui attribue des tiers.',
+          'Transmission : les comptes éligibles sont enrichis en contacts décideurs, validés par lots, synchronisés vers le CRM par son API avec contrôles bloquants et reprise sans doublon, puis suivis en retour via les webhooks du CRM.',
+          'Planification : un outil d’orchestration lance les travaux quotidiens, hebdomadaires et mensuels via une API de jobs protégée par jeton et alerte quand un flux a plus de deux jours de retard.',
+        ],
+        note: 'Un moteur compagnon gère le dossier une fois le lead devenu client : un modèle de process versionné pilote les tâches par rôle, des relances automatiques quand une pièce client est attendue (la première à dix jours, puis chaque semaine) et une escalade après trois relances — pour que le suivi ne dépende jamais de la mémoire de quelqu’un.',
+      },
+      {
+        id: 'implementation',
+        heading: 'Implémentation',
+        bullets: [
+          'Backend FastAPI sur PostgreSQL avec migrations ; DuckDB pour le filtrage massif des registres ; client HTTP avec limitation de débit et reprise ; journal d’exécution pour chaque travail.',
+          'Écrans React pour la liste de comptes, la fiche avec sources et données brutes, la file de revue, les règles en vigueur et un tableau de bord ; SSO avec rôles direction, relecteur et développeur.',
+          'Jeux de règles en YAML : cibles, exclusions, signaux, scoring, correspondance des champs CRM — versionnés et relus comme du code.',
+          'Classification LLM des sites web optionnelle derrière un interrupteur, crawler respectueux de robots.txt, enrichissement de contacts par une API externe.',
+          'Tests automatisés sur l’API et les règles, lint et vérification de types en intégration continue, Docker Compose pour toute la pile.',
+        ],
+      },
+      {
+        id: 'status',
+        heading: 'Statut et enseignements',
+        paragraphs: [
+          'Les quatre itérations prévues sont livrées et le pipeline tourne de bout en bout sur des données publiques réelles. Certains comptes externes (une API d’offres d’emploi, le service d’enrichissement de contacts, l’instance CRM) étaient encore en cours d’activation au moment d’écrire ces lignes ; aucun chiffre de conversion n’est donc avancé.',
+          'Ce que je garderais pour tout système similaire : stockage brut idempotent, règles en configuration relue, scores expliqués avec leurs sources, et validation humaine avant tout ce qui touche un outil en contact avec le client.',
+        ],
+        note: 'La plateforme est présentée sans son secteur ni son employeur, volontairement : le moteur est piloté par la configuration et destiné à servir plusieurs offres. Les détails qui identifieraient un client ou un marché sont omis.',
+      },
+    ],
+  },
+  {
+    slug: 'mp-maroc',
+    number: '03',
     title: 'MP Maroc',
     subtitle: 'Veille des marchés publics marocains',
     category: 'Produit data · Plateforme web',
@@ -213,7 +313,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'realtime-data-pipeline',
-    number: '03',
+    number: '04',
     title: 'Pipeline de données temps réel',
     subtitle: 'Une architecture de streaming, de l’ingestion à l’observabilité',
     category: 'Data engineering · Projet académique',
@@ -226,7 +326,7 @@ export const projects: Project[] = [
     stack: ['Apache Kafka', 'Spark Streaming', 'Apache Cassandra', 'Prometheus', 'Grafana'],
     visual: 'streaming-pipeline',
     featured: true,
-    layout: 'split-reverse',
+    layout: 'compact',
     visualCaption: 'Schéma de l’architecture. Aucun chiffre de débit n’est montré car aucun n’a été formellement mesuré.',
     seoDescription:
       'Un pipeline de données temps réel académique construit avec Kafka, Spark Streaming, Cassandra, Prometheus et Grafana.',
@@ -263,7 +363,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'talent-orchestrator',
-    number: '04',
+    number: '05',
     title: 'Talent Orchestrator',
     subtitle: 'Un concept d’assistant IA pour l’analyse RH, avec l’humain dans la boucle',
     category: 'Concept de hackathon · IA pour les RH',
@@ -276,7 +376,7 @@ export const projects: Project[] = [
     stack: [],
     visual: 'talent-orchestrator',
     featured: true,
-    layout: 'compact',
+    layout: 'split-reverse',
     visualCaption: 'Schéma de concept. Le système a été conçu comme un outil d’aide à la décision ; chaque recommandation passe par un relecteur humain.',
     seoDescription:
       'Talent Orchestrator : un concept de hackathon pour un assistant IA supervisé par l’humain qui soutient l’analyse RH de la charge, des contributions et du développement.',

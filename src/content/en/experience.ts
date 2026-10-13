@@ -15,7 +15,7 @@ export const experience: ExperienceEntry[] = [
     organisationFallback: 'Energy and tax consultancy, France',
     kind: 'employment',
     summary:
-      'Design and integration of AI and digital solutions for an energy and tax consultancy: process automation, document processing and technical implementation.',
+      'Design and integration of AI and digital solutions for an energy and tax consultancy: process automation, document processing, a signal-driven lead engine and technical implementation.',
     bullets: [],
     relatedProject: 'btpextract',
   },

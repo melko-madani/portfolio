@@ -10,7 +10,7 @@ export const experience: ExperienceEntry[] = [
     organisationFallback: 'Cabinet de conseil en énergie et fiscalité, France',
     kind: 'employment',
     summary:
-      'Conception et intégration de solutions IA et digitales pour un cabinet de conseil en énergie et fiscalité : automatisation de processus, traitement documentaire et implémentation technique.',
+      'Conception et intégration de solutions IA et digitales pour un cabinet de conseil en énergie et fiscalité : automatisation de processus, traitement documentaire, moteur de leads par signaux et implémentation technique.',
     bullets: [],
     relatedProject: 'btpextract',
   },

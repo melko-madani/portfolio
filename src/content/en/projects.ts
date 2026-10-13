@@ -132,8 +132,108 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'mp-maroc',
+    slug: 'lead-engine',
     number: '02',
+    title: 'Signal-driven lead engine',
+    subtitle: 'From public sources to qualified leads, ready for outreach',
+    category: 'Automation · Data product',
+    status: 'professional',
+    statusLabel: 'Professional project · built end to end',
+    summary:
+      'A sector-agnostic platform that watches public sources, turns what it finds into intent signals, scores and qualifies the organisations that have a reason to act now, and hands them to the sales team with verified contacts, an explained score and automated follow-ups — every rule versioned, every data point traceable.',
+    role: 'Sole designer and developer: specification, data model, collectors, rules engine, scoring, screens, CRM integration and scheduling.',
+    roleShort: 'Sole designer and developer',
+    year: '2026',
+    stack: ['Python 3.12', 'FastAPI', 'PostgreSQL', 'DuckDB', 'SQLAlchemy · Alembic', 'YAML rule sets', 'n8n', 'Docker', 'React', 'TypeScript', 'LLM classification', 'SSO (Entra ID)'],
+    visual: 'lead-engine',
+    featured: true,
+    layout: 'split-reverse',
+    visualCaption: 'Illustrative recreation of the account list and hand-off. Organisations, signals and scores are fictitious examples.',
+    seoDescription:
+      'A sector-agnostic lead engine: public-source collectors, versioned signal and scoring rules, human validation, CRM hand-off and automated follow-ups, built with FastAPI, PostgreSQL, n8n and React.',
+    links: [],
+    caseStudySections: [
+      {
+        id: 'overview',
+        heading: 'Overview',
+        paragraphs: [
+          'Sales teams do not lack company directories; they lack a short list of organisations that have a reason to act now, with a verifiable motive for the call. This platform produces exactly that list.',
+          'It collects official public sources, consolidates them into a clean universe of organisations, detects intent signals, scores each account with explained, versioned rules, and hands validated batches to the CRM with decision-maker contacts. The target segments, signals and weights are configuration, not code — so the same engine serves different offers and sectors.',
+        ],
+      },
+      {
+        id: 'problem',
+        heading: 'The problem',
+        paragraphs: [
+          'Prospecting from raw lists wastes the two scarcest resources of a small sales team: attention and credibility. Calling an organisation without a reason burns the relationship; chasing stale data wastes the morning.',
+          'The brief was therefore not “find companies” but “find the ones with a reason to act, say why, prove it, and keep the pipeline fresh without anyone watching it”.',
+        ],
+      },
+      {
+        id: 'constraints',
+        heading: 'Constraints',
+        bullets: [
+          'Traceability: every displayed fact carries its source, its collection date and a link to verify it; every score can be explained after the fact, even if the data changed since.',
+          'Reusability: segments, exclusions, signals and scoring weights live in versioned rule files reviewed by pull request, never hardcoded.',
+          'Privacy: personal data only enters the system once an account is eligible, opt-outs arrive through a signed webhook, and a scheduled purge enforces retention.',
+          'Operability: idempotent collectors that can be rerun after a failure without creating duplicates, and a freshness alert when a daily feed goes quiet.',
+        ],
+      },
+      {
+        id: 'role',
+        heading: 'My role',
+        paragraphs: [
+          'I wrote the specification and the implementation plan, then built the platform alone over four iterations: foundation and universe of organisations, signals, scoring and screens, then contacts, CRM and privacy. Architecture decisions are recorded as short decision records alongside the code.',
+        ],
+      },
+      {
+        id: 'approach',
+        heading: 'Approach',
+        bullets: [
+          'Separate what is collected from what is decided: raw records are stored as-is and timestamped; normalisation, entity resolution and rules run on top and can be replayed.',
+          'Make the LLM a fact extractor, never a judge: it classifies what an organisation does from its public website; eligibility and scoring stay deterministic.',
+          'Keep humans at the gates: ambiguous exclusions and uncertain entity matches go to a review queue, and a batch only reaches the CRM after someone validates it.',
+          'Measure before trusting: a reference set of hand-labelled accounts checks that the exclusion gate leaks nothing, and calibration compares expected signal relevance with what reviewers actually decide.',
+        ],
+      },
+      {
+        id: 'system-design',
+        heading: 'System design',
+        paragraphs: ['Collect → normalise → decide → validate → hand off.'],
+        bullets: [
+          'Collectors, one per source: registry snapshots, legal announcements, job postings, public procurement notices, sector directories and company websites. Each writes idempotently into a raw store keyed by content hash.',
+          'A core layer resolves organisations, establishments and contacts under a single identifier and keeps monthly snapshots so that growth and status changes become signals.',
+          'A rules engine applies, in order, an exclusion gate, signal detection with weights, lifetimes and decay, then fit-plus-signal scoring that assigns tiers.',
+          'Hand-off: eligible accounts are enriched with decision-maker contacts, validated in batches, synchronised to the CRM through its API with blocking checks and no-duplicate recovery, and tracked back through CRM webhooks.',
+          'Scheduling: an orchestration tool runs the daily, weekly and monthly jobs through a token-protected jobs API and raises an alert when a feed is more than two days stale.',
+        ],
+        note: 'A companion engine handles the case workflow once a lead becomes a client: a versioned process model drives tasks by role, automatic reminders when a client input is pending (first after ten days, then weekly), and escalation after three reminders — so follow-ups never depend on someone remembering.',
+      },
+      {
+        id: 'implementation',
+        heading: 'Implementation',
+        bullets: [
+          'FastAPI backend on PostgreSQL with migrations; DuckDB for bulk registry filtering; HTTP client with rate limiting and backoff; an execution journal for every job.',
+          'React screens for the account list, the account sheet with sources and raw data, the review queue, the rules in force and a dashboard; SSO with roles for management, reviewers and developers.',
+          'Rule sets in YAML: targets, exclusions, signals, scoring, CRM field mapping — versioned and reviewed like code.',
+          'Optional LLM classification of websites behind a feature flag, a polite crawler that respects robots.txt, and contact enrichment through an external API.',
+          'Automated tests on the API and the rules, linting and type checking in continuous integration, Docker Compose for the whole stack.',
+        ],
+      },
+      {
+        id: 'status',
+        heading: 'Status and learnings',
+        paragraphs: [
+          'The four planned iterations are delivered and the pipeline runs end to end on real public data. Some external accounts (a job-postings API, the contact-enrichment service, the CRM instance) were still being switched on at the time of writing, so no conversion figures are claimed here.',
+          'What I would keep for any similar system: idempotent raw storage, rules as reviewed configuration, explained scores with their sources, and human validation before anything reaches a customer-facing tool.',
+        ],
+        note: 'The platform is presented without its sector or employer on purpose: the engine is configuration-driven and meant to serve several offers. Details that would identify a client or a market are omitted.',
+      },
+    ],
+  },
+  {
+    slug: 'mp-maroc',
+    number: '03',
     title: 'MP Maroc',
     subtitle: 'Monitoring Moroccan public tenders',
     category: 'Data product · Web platform',
@@ -213,7 +313,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'realtime-data-pipeline',
-    number: '03',
+    number: '04',
     title: 'Real-time data pipeline',
     subtitle: 'A streaming architecture from ingestion to observability',
     category: 'Data engineering · Academic project',
@@ -226,7 +326,7 @@ export const projects: Project[] = [
     stack: ['Apache Kafka', 'Spark Streaming', 'Apache Cassandra', 'Prometheus', 'Grafana'],
     visual: 'streaming-pipeline',
     featured: true,
-    layout: 'split-reverse',
+    layout: 'compact',
     visualCaption: 'Schematic of the architecture. Throughput figures are not shown because none were formally measured.',
     seoDescription:
       'An academic real-time data pipeline built with Kafka, Spark Streaming, Cassandra, Prometheus and Grafana.',
@@ -263,7 +363,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'talent-orchestrator',
-    number: '04',
+    number: '05',
     title: 'Talent Orchestrator',
     subtitle: 'An AI assistant concept for HR analysis, with humans in the loop',
     category: 'Hackathon concept · AI for HR',
@@ -276,7 +376,7 @@ export const projects: Project[] = [
     stack: [],
     visual: 'talent-orchestrator',
     featured: true,
-    layout: 'compact',
+    layout: 'split-reverse',
     visualCaption: 'Concept diagram. The system was designed as a decision-support tool; every recommendation passes through a human reviewer.',
     seoDescription:
       'Talent Orchestrator: a hackathon concept for a human-supervised AI assistant that supports HR analysis of workload, contributions and development.',

@@ -42,7 +42,7 @@ export interface Profile {
   portrait: { src: string; alt: string; width: number; height: number }
 }
 
-export type ProjectStatus = 'internship' | 'personal' | 'academic' | 'hackathon' | 'prototype' | 'production'
+export type ProjectStatus = 'internship' | 'professional' | 'personal' | 'academic' | 'hackathon' | 'prototype' | 'production'
 
 export interface CaseStudySection {
   id: string
@@ -55,7 +55,7 @@ export interface CaseStudySection {
   note?: string
 }
 
-export type VisualKind = 'btpextract' | 'mp-maroc' | 'streaming-pipeline' | 'talent-orchestrator'
+export type VisualKind = 'btpextract' | 'lead-engine' | 'mp-maroc' | 'streaming-pipeline' | 'talent-orchestrator'
 
 export interface Project {
   slug: string
@@ -135,6 +135,18 @@ export interface Story {
 }
 
 export interface VisualLabels {
+  lead: {
+    sources: string
+    sourceItems: [string, string][]
+    accounts: string
+    sortedBy: string
+    rows: { name: string; meta: string; signals: string[]; tier: string; score: string }[]
+    explained: string
+    handoff: string
+    steps: [string, string][]
+    privacy: string
+    schedule: string[]
+  }
   btp: {
     output: string
     supplier: string
